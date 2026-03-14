@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>马来西亚GPU服务器 | AI算力租赁 | Cherry Servers合作伙伴</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #050816;
+      --bg-soft: #0a1024;
+      --panel: rgba(10, 16, 36, 0.72);
+      --panel-2: rgba(14, 22, 48, 0.84);
+      --line: rgba(113, 221, 255, 0.16);
+      --text: #f5f8ff;
+      --muted: #aab6e8;
+      --cyan: #57d7ff;
+      --blue: #4d8dff;
+      --violet: #8b5cff;
+      --green: #5dffb2;
+      --shadow: 0 0 30px rgba(87, 215, 255, 0.12), 0 0 70px rgba(139, 92, 255, 0.1);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Arial, "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(87, 215, 255, 0.14), transparent 18%),
+        radial-gradient(circle at 85% 12%, rgba(139, 92, 255, 0.16), transparent 22%),
+        radial-gradient(circle at 60% 68%, rgba(77, 141, 255, 0.12), transparent 20%),
+        linear-gradient(180deg, #040712 0%, #060b1b 30%, #050816 100%);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(87,215,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(87,215,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(circle at center, black 45%, transparent 95%);
+      pointer-events: none;
+      opacity: 0.35;
+      z-index: 0;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container {
+      width: min(92%, 1200px);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(5, 8, 22, 0.72);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(87, 215, 255, 0.1);
+      z-index: 100;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #dff7ff;
+      text-shadow: 0 0 14px rgba(87, 215, 255, 0.42);
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      color: #cfd8ff;
+      font-size: 14px;
+    }
+    .nav-links a { transition: .25s ease; }
+    .nav-links a:hover { color: var(--cyan); text-shadow: 0 0 12px rgba(87,215,255,.45); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 22px;
+      border-radius: 14px;
+      font-weight: 700;
+      letter-spacing: .2px;
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      transform: translateX(-120%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+      transition: transform .65s ease;
+      z-index: -1;
+    }
+    .btn:hover::before { transform: translateX(120%); }
+    .btn:hover { transform: translateY(-2px) scale(1.01); }
+    .btn-primary {
+      background: linear-gradient(135deg, rgba(87,215,255,0.95), rgba(77,141,255,0.95) 45%, rgba(139,92,255,0.95));
+      color: white;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset, 0 0 22px rgba(87,215,255,.2), 0 0 40px rgba(139,92,255,.16);
+      animation: pulseGlow 2.8s infinite ease-in-out;
+    }
+    .btn-primary:hover { box-shadow: 0 0 0 1px rgba(255,255,255,0.12) inset, 0 0 28px rgba(87,215,255,.28), 0 0 52px rgba(139,92,255,.22); }
+    .btn-secondary {
+      border: 1px solid rgba(87,215,255,0.18);
+      color: #e7ebff;
+      background: rgba(255,255,255,0.03);
+      box-shadow: 0 0 20px rgba(87,215,255,0.06);
+    }
+    .btn-secondary:hover { border-color: rgba(87,215,255,0.45); box-shadow: 0 0 24px rgba(87,215,255,0.12); }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset, 0 0 18px rgba(87,215,255,.16), 0 0 34px rgba(139,92,255,.12); }
+      50% { box-shadow: 0 0 0 1px rgba(255,255,255,0.1) inset, 0 0 28px rgba(87,215,255,.24), 0 0 52px rgba(139,92,255,.18); }
+    }
+    .hero {
+      padding: 88px 0 56px;
+      position: relative;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 36px;
+      align-items: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(87,215,255,0.08);
+      color: #a8ecff;
+      font-size: 13px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(87,215,255,0.18);
+      box-shadow: 0 0 20px rgba(87,215,255,0.08);
+    }
+    h1 {
+      font-size: 52px;
+      line-height: 1.08;
+      margin-bottom: 18px;
+      text-shadow: 0 0 18px rgba(87,215,255,0.08);
+    }
+    .hero p {
+      color: #c8d0f2;
+      font-size: 18px;
+      margin-bottom: 24px;
+      max-width: 620px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .hero-points {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      color: #b7c1ea;
+      font-size: 14px;
+    }
+    .hero-card, .card, .price-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025));
+      border: 1px solid rgba(87,215,255,0.1);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+    .hero-card {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::after, .card::after, .price-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -30% -55% auto;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(87,215,255,.18), transparent 70%);
+      pointer-events: none;
+    }
+    .hero-card h3 { margin-bottom: 18px; font-size: 24px; }
+    .spec-list {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .spec {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(87,215,255,0.08);
+      border-radius: 12px;
+      color: #dde4ff;
+    }
+    section { padding: 72px 0; position: relative; }
+    .section-title {
+      font-size: 36px;
+      margin-bottom: 14px;
+      text-align: center;
+      text-shadow: 0 0 16px rgba(87,215,255,0.1);
+    }
+    .section-subtitle {
+      text-align: center;
+      color: #b8c2eb;
+      max-width: 760px;
+      margin: 0 auto 36px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .card {
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card h3 { margin-bottom: 10px; font-size: 22px; }
+    .card p { color: #bcc6ee; }
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .price-card {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .price-card.featured {
+      border: 1px solid rgba(87,215,255,0.32);
+      box-shadow: 0 0 0 1px rgba(87,215,255,.08) inset, 0 0 26px rgba(87,215,255,.16), 0 0 54px rgba(139,92,255,.14);
+    }
+    .tag {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(87,215,255,0.14);
+      color: #9cd7ff;
+      border: 1px solid rgba(87,215,255,.18);
+    }
+    .price-title { font-size: 24px; margin-bottom: 10px; }
+    .price {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #fff, #a8ecff 40%, #c3b3ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .price small {
+      font-size: 15px;
+      color: #b5c0eb;
+      font-weight: 400;
+      -webkit-text-fill-color: #b5c0eb;
+    }
+    .features {
+      margin: 18px 0 22px;
+      display: grid;
+      gap: 10px;
+      color: #dce4ff;
+    }
+    .cta {
+      background: linear-gradient(135deg, rgba(87,215,255,0.08), rgba(139,92,255,0.08));
+      border-top: 1px solid rgba(87,215,255,0.08);
+      border-bottom: 1px solid rgba(87,215,255,0.08);
+    }
+    .cta-box {
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 40px 0;
+    }
+    .cta-box p {
+      margin: 16px 0 24px;
+      color: #c7d0f4;
+    }
+    .logo-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+    .logo-item, .mini-stat {
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(87,215,255,0.08);
+      text-align: center;
+      color: #d9e2ff;
+      box-shadow: 0 0 18px rgba(87,215,255,.05);
+    }
+    .logo-item strong { display:block; font-size:16px; }
+    .logo-item span, .mini-stat span { color: var(--muted); font-size: 13px; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 30px;
+    }
+    .mini-stat strong { display:block; font-size: 18px; margin-bottom: 6px; }
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .case-tag {
+      display: inline-block;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      color: #a8ecff;
+      border: 1px solid rgba(87,215,255,.18);
+      background: rgba(87,215,255,.07);
+    }
+    .pay-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .pay-item {
+      text-align: center;
+      padding: 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(87,215,255,0.08);
+      border-radius: 18px;
+      color: #e9efff;
+      box-shadow: 0 0 18px rgba(87,215,255,.04);
+    }
+    .pay-item strong { display:block; font-size: 18px; margin-bottom: 6px; }
+    input, textarea, select {
+      color: #fff;
+      outline: none;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(87,215,255,0.08);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 16px;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(87,215,255,0.38) !important;
+      box-shadow: 0 0 15px rgba(87,215,255,0.2);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+      color: #e8eeff;
+    }
+    th {
+      text-align: left;
+      padding: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    td {
+      padding: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-note {
+      text-align: center;
+      color: #aab6e8;
+      font-size: 12px;
+      margin-top: 30px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(87,215,255,0.1);
+    }
+    .trust-badge {
+      background: rgba(87,215,255,0.05);
+      border: 1px solid rgba(87,215,255,0.15);
+      border-radius: 100px;
+      padding: 12px 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .trust-badge span {
+      color: #a8ecff;
+      font-weight: 600;
+    }
+    .trust-badge small {
+      color: #b7c1ea;
+    }
+    @media (max-width: 960px) {
+      .hero-grid, .cards, .pricing, .case-grid, .pay-strip, .logo-strip, .stats-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 38px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">GPU Cloud MY</div>
+      <div class="nav-links">
+        <a href="#services">服务</a>
+        <a href="#pricing">价格</a>
+        <a href="#tools">AI 工具</a>
+        <a href="#cases">客户案例</a>
+        <a href="#contact">联系</a>
+      </div>
+      <a class="btn btn-primary" href="https://www.cherryservers.com/dedicated-gpu-servers?affiliate=F1APIHV3" target="_blank">查看GPU报价</a>
+    </div>
+  </header>
+
+  <!-- 信任背书条 -->
+  <div class="container" style="margin-top: 20px;">
+    <div class="trust-badge">
+      <span>🏆 Cherry Servers 官方合作伙伴</span>
+      <span>⭐ 客户评分 4.5/5</span>
+      <span>⚡ 15分钟极速部署</span>
+      <span>💳 20+种支付方式</span>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="badge">RTX 4090 / A100 / AI 环境预装</div>
+        <h1>高性能GPU服务器<br>即开即用，专为 AI 场景打造</h1>
+        <p>
+          提供 AI 绘图、模型训练、推理部署、ComfyUI、Stable Diffusion、PyTorch 环境。按小时计费，适合个人开发者、工作室、电商团队与 AI 服务商。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://www.cherryservers.com/dedicated-gpu-servers?affiliate=F1APIHV3" target="_blank">查看实时报价</a>
+          <a class="btn btn-secondary" href="#pricing">查看所有方案</a>
+        </div>
+        <div class="hero-points">
+          <span>✅ 按小时/包月计费</span>
+          <span>✅ 可预装 ComfyUI / A1111</span>
+          <span>✅ 15分钟极速部署</span>
+          <span>✅ 支持API自动化管理</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>热门GPU配置</h3>
+        <div class="spec-list">
+          <div class="spec"><span>NVIDIA A100 80GB</span><strong>官网实时报价</strong></div>
+          <div class="spec"><span>NVIDIA A40 48GB</span><strong>官网实时报价</strong></div>
+          <div class="spec"><span>NVIDIA A10 24GB</span><strong>官网实时报价</strong></div>
+          <div class="spec"><span>PyTorch / CUDA</span><strong>免费预装</strong></div>
+        </div>
+        <p style="color:#b7c1ea; margin-top: 12px;">适合：AI 绘图、LoRA 训练、模型微调、图像生成、视频生成、推理服务部署。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="stats-grid">
+        <div class="mini-stat"><strong>15 min</strong><span>最快部署时间</span></div>
+        <div class="mini-stat"><strong>4.5/5</strong><span>客户评分</span></div>
+        <div class="mini-stat"><strong>24/7</strong><span>技术支持</span></div>
+        <div class="mini-stat"><strong>20+</strong><span>支付方式</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <h2 class="section-title">你可以拿来做什么</h2>
+      <p class="section-subtitle">不只是出租 GPU，而是直接提供可用环境，让客户更容易下单。</p>
+      <div class="cards">
+        <div class="card">
+          <h3>AI 绘图</h3>
+          <p>支持 Stable Diffusion、ComfyUI、Automatic1111，适合生成商品图、角色图、广告图和素材图。</p>
+        </div>
+        <div class="card">
+          <h3>模型训练</h3>
+          <p>支持 CUDA、PyTorch、TensorFlow，可用于 LoRA、微调、数据训练和实验测试。</p>
+        </div>
+        <div class="card">
+          <h3>推理部署</h3>
+          <p>适合部署 LLM、图像生成接口、AI Bot、自动化工具或企业内部 AI 服务。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="container">
+      <h2 class="section-title">支持的 AI 工具</h2>
+      <p class="section-subtitle">把客户熟悉的工具直接展示出来，可信度和转化率会高很多。</p>
+      <div class="logo-strip">
+        <div class="logo-item"><strong>ComfyUI</strong><span>工作流绘图</span></div>
+        <div class="logo-item"><strong>Stable Diffusion</strong><span>图像生成</span></div>
+        <div class="logo-item"><strong>Automatic1111</strong><span>经典 WebUI</span></div>
+        <div class="logo-item"><strong>PyTorch</strong><span>模型训练</span></div>
+        <div class="logo-item"><strong>Jupyter</strong><span>实验环境</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="container">
+      <h2 class="section-title">服务器方案</h2>
+      <p class="section-subtitle">所有价格均为 Cherry Servers 官网实时报价，点击按钮查看最新价格。</p>
+      
+      <!-- 三个方案并排，分别指向三个不同的精准链接 -->
+      <div class="pricing">
+        <!-- 方案1：GPU专用服务器（主推） -->
+        <div class="price-card featured">
+          <div class="tag">最推荐</div>
+          <div class="price-title">AI 专用 GPU 服务器</div>
+          <div class="price">官网价 <small>/ 小时起</small></div>
+          <p style="color:#b7c1ea;">NVIDIA A100 / A40 / A10，适合AI绘图、训练、推理</p>
+          <div class="features">
+            <div>✔ NVIDIA 企业级 GPU</div>
+            <div>✔ 预装 AI 环境</div>
+            <div>✔ 15分钟部署</div>
+          </div>
+          <a class="btn btn-primary" href="https://www.cherryservers.com/dedicated-gpu-servers?affiliate=F1APIHV3" target="_blank">查看GPU报价</a>
+        </div>
+
+        <!-- 方案2：即时专用服务器 -->
+        <div class="price-card">
+          <div class="price-title">高性能即时服务器</div>
+          <div class="price">官网价 <small>/ 小时起</small></div>
+          <p style="color:#b7c1ea;">预配置高性能CPU服务器，3-20分钟极速部署</p>
+          <div class="features">
+            <div>✔ AMD / Intel 最新CPU</div>
+            <div>✔ 高内存/高速NVMe</div>
+            <div>✔ 适合测试/网站/短租</div>
+          </div>
+          <a class="btn btn-secondary" href="http://cherryservers.com/bare-metal-dedicated-servers/instant-servers?affiliate=F1APIHV3" target="_blank">查看即时服务器</a>
+        </div>
+
+        <!-- 方案3：定制专用服务器 -->
+        <div class="price-card">
+          <div class="price-title">企业级定制服务器</div>
+          <div class="price">定制报价</div>
+          <p style="color:#b7c1ea;">完全自定义CPU、内存、存储，满足特殊需求</p>
+          <div class="features">
+            <div>✔ 自由选择硬件</div>
+            <div>✔ 适合大数据/合规场景</div>
+            <div>✔ 专属技术支持</div>
+          </div>
+          <a class="btn btn-secondary" href="https://www.cherryservers.com/bare-metal-dedicated-servers/custom-servers?affiliate=F1APIHV3" target="_blank">查看定制选项</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cases">
+    <div class="container">
+      <h2 class="section-title">客户案例</h2>
+      <p class="section-subtitle">以下为示意案例，等你积累真实客户后可替换。</p>
+      <div class="case-grid">
+        <div class="card">
+          <div class="case-tag">电商卖家</div>
+          <h3>商品图批量生成</h3>
+          <p>客户使用 RTX 4090 + ComfyUI 批量生成电商主图与广告素材，缩短出图时间。</p>
+        </div>
+        <div class="card">
+          <div class="case-tag">AI 开发团队</div>
+          <h3>LoRA 微调与测试</h3>
+          <p>客户采用预装 PyTorch 环境进行模型微调，不必自己配置复杂训练环境。</p>
+        </div>
+        <div class="card">
+          <div class="case-tag">自动化服务商</div>
+          <h3>推理 API 部署</h3>
+          <p>客户把推理服务部署到 GPU 实例上，对接 Bot 与企业内部自动化流程。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">为什么选择我们</h2>
+      <p class="section-subtitle">作为 Cherry Servers 官方合作伙伴，我们为你提供：</p>
+      <div class="cards">
+        <div class="card">
+          <h3>官方授权合作伙伴</h3>
+          <p>所有跳转均为官方渠道，享受同等服务保障，你的消费记录受官方认可。</p>
+        </div>
+        <div class="card">
+          <h3>15分钟极速部署</h3>
+          <p>通过我的链接下单，享受 Cherry Servers 标志性的快速部署服务。</p>
+        </div>
+        <div class="card">
+          <h3>人工咨询支持</h3>
+          <p>可协助环境配置、选型建议，让新手也能快速上手。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">套餐比较</h2>
+      <p class="section-subtitle">让客户一眼看懂差别，减少来回沟通时间。</p>
+      <div class="card" style="overflow-x:auto; padding: 10px;">
+        <table>
+          <thead>
+            <tr>
+              <th>方案</th>
+              <th>硬件特点</th>
+              <th>适合用途</th>
+              <th>部署时间</th>
+              <th>价格</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AI GPU 服务器</td>
+              <td>NVIDIA A100/A40/A10</td>
+              <td>AI绘图、模型训练、推理</td>
+              <td>15分钟</td>
+              <td>官网实时价</td>
+            </tr>
+            <tr>
+              <td>即时服务器</td>
+              <td>高性能CPU、大内存</td>
+              <td>测试环境、网站托管、短期项目</td>
+              <td>3-20分钟</td>
+              <td>官网实时价</td>
+            </tr>
+            <tr>
+              <td>定制服务器</td>
+              <td>自由选CPU/内存/存储</td>
+              <td>大数据、合规场景、特殊需求</td>
+              <td>24-72小时</td>
+              <td>定制报价</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">下单流程</h2>
+      <p class="section-subtitle">通过我的链接跳转，在 Cherry Servers 官网完成下单。</p>
+      <div class="cards">
+        <div class="card">
+          <h3>01 点击按钮</h3>
+          <p>点击页面上的“查看报价”按钮，跳转到 Cherry Servers 官网。</p>
+        </div>
+        <div class="card">
+          <h3>02 选择配置</h3>
+          <p>在官网选择你需要的 GPU 型号、CPU、内存、存储等配置。</p>
+        </div>
+        <div class="card">
+          <h3>03 完成下单</h3>
+          <p>注册账号并完成支付，服务器将在几分钟内开通。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2 class="section-title">常见问题</h2>
+      <p class="section-subtitle">把客户最常问的问题提前写出来，能省很多解释时间。</p>
+      <div class="cards">
+        <div class="card">
+          <h3>支持哪些环境？</h3>
+          <p>可按需求预装 ComfyUI、Automatic1111、PyTorch、CUDA、Jupyter、基础 Linux 环境。</p>
+        </div>
+        <div class="card">
+          <h3>怎么付款？</h3>
+          <p>Cherry Servers 支持 20+ 种支付方式，包括加密货币、信用卡、PayPal、银行转账等。</p>
+        </div>
+        <div class="card">
+          <h3>多久能开通？</h3>
+          <p>GPU服务器约15分钟，即时服务器3-20分钟，定制服务器24-72小时。</p>
+        </div>
+      </div>
+      <!-- 支付方式概括描述，不列具体图标 -->
+      <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.02); border-radius: 16px;">
+        <p style="color: #a8ecff;">💳 支持 20+ 种支付方式：加密货币、信用卡、PayPal、银行转账等</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="container cta-box">
+      <h2 class="section-title">现在就开始租用 GPU</h2>
+      <p>点击下方按钮，跳转 Cherry Servers 官网查看实时报价，15分钟极速部署。</p>
+      <div class="hero-actions" style="justify-content:center;">
+        <a class="btn btn-primary" href="https://www.cherryservers.com/dedicated-gpu-servers?affiliate=F1APIHV3" target="_blank">查看GPU报价</a>
+        <a class="btn btn-secondary" href="http://cherryservers.com/bare-metal-dedicated-servers/instant-servers?affiliate=F1APIHV3" target="_blank">查看即时服务器</a>
+        <a class="btn btn-secondary" href="https://www.cherryservers.com/bare-metal-dedicated-servers/custom-servers?affiliate=F1APIHV3" target="_blank">查看定制服务器</a>
+      </div>
+      <p style="margin-top: 30px; font-size: 14px; color: #6b7ab0;">
+        ⚡ 作为 Cherry Servers 官方合作伙伴，您通过本网站跳转至官网下单将获得同等官方保障。
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="text-align: center; padding: 30px 0; border-top: 1px solid rgba(87,215,255,0.1);">
+      <p>© 2026 GPU Cloud MY · GPU 算力租赁 / AI 服务器 / 模型训练服务</p>
+      <p style="font-size: 12px; color: #6b7ab0; margin-top: 10px;">Cherry Servers 官方合作伙伴 |  affiliate ID: F1APIHV3</p>
+    </div>
+  </footer>
+</body>
+</html>
